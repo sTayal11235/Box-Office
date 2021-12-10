@@ -12,6 +12,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "request": "^2.88.2",
+    "styled-components": "^5.3.3",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -63,7 +64,6 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.0",
-    "rimraf": "^3.0.2",
-    "sass": "^1.44.0"
+    "rimraf": "^3.0.2"
   }
 }

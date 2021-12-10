@@ -37,7 +37,7 @@ function Home() {
             <button type="button" onClick={onSearch}>Search</button>
             <label htmlFor="shows"><input type="radio" id = 'shows' value="shows" onChange={changeSearchOption} checked={isShowChecked} />Shows</label>
             <label htmlFor="actors"><input type="radio" id = 'actors' value="people" onChange={changeSearchOption} checked={!isShowChecked} />Actors</label>
-            <RenderResults results={results } isShowChecked={isShowChecked} />
+            <RenderResults results={results } />
         </MainPageLayout>
     )
 }

@@ -17,7 +17,6 @@ function Home() {
 
     const onSearch = () => {
         getApiResponse(`/search/${searchOption}?q=${input}`).then(result => {
-            console.log(result)
             setResults(result)
         })
     }

@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import MainPageLayout from '../component/MainPageLayout'
 import { RenderResults } from '../component/RenderResults'
+import { usePersistedQuery } from '../misc/CustomHook'
 import { getApiResponse } from '../misc/Response'
 
 function Home() {
 
-    const [input, setInput] = useState('')
+    const [input, setInput] = usePersistedQuery()
     const [results, setResults] = useState(null)
     const [searchOption, setSearchOption] = useState('shows')
 

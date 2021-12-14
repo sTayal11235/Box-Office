@@ -1,58 +1,17 @@
 /* eslint-disable no-underscore-dangle */
-import React,{ useReducer, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { InfoBlock, ShowPageWrapper } from '../component/Show.styled'
 import Cast from '../component/show/Cast'
 import Details from '../component/show/Details'
 import Seasons from '../component/show/Seasons'
 import ShowMainData from '../component/show/ShowMainData'
-import { getApiResponse } from '../misc/Response'
-
-const reducer = (prev, action) => {
-    switch(action.type){
-        case 'FETCH_SUCCESS': {
-            return {...prev, isLoading: false, moreInfo: action.showMore}
-        }
-        case 'FETCH_ERROR': {
-            return {...prev, error: action.error, isLoading: false}
-        }
-        default: return prev
-    }
-}
-
-const initialState = {
-    moreInfo: null,
-    isLoading: true,
-    error: null
-}
-
+import { useReadMore } from '../misc/CustomHook'
 
 const ReadMore = () => {
     const { id } = useParams()
-    // const [moreInfo, setMoreInfo] = useState(null)
-    // const [isLoading, setIsLoading] = useState(true)
-    // const [error, setError] = useState(null)
 
-    const [{moreInfo, isLoading, error}, dispatch] = useReducer(reducer, initialState)
-    
-    useEffect(() => {
-        let isMounted = true;
-
-        getApiResponse(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(res => {
-            if(isMounted){
-                dispatch({type: 'FETCH_SUCCESS', showMore: res})
-            }
-            
-        }).catch(err => {
-            if(isMounted){
-                dispatch({type: 'FETCH_ERROR', error: err.message})
-            }
-        })
-
-        return () => {
-            isMounted = false
-        }
-    } , [id])
+    const { moreInfo, isLoading, error } = useReadMore(id)
 
     if(isLoading){
         return (<div>Loading Page</div>)

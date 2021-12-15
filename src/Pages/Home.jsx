@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
+import CustomRadio from '../component/CustomRadio'
 import MainPageLayout from '../component/MainPageLayout'
 import { RenderResults } from '../component/RenderResults'
 import { usePersistedQuery } from '../misc/CustomHook'
 import { getApiResponse } from '../misc/Response'
+import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.styled'
 
 function Home() {
 
@@ -33,10 +35,19 @@ function Home() {
 
     return (
         <MainPageLayout>
-            <input type="text" placeholder="Search for Shows/Actors" onKeyDown ={onKeyDown} onChange={inputText} value={input}/>
-            <button type="button" onClick={onSearch}>Search</button>
-            <label htmlFor="shows"><input type="radio" id = 'shows' value="shows" onChange={changeSearchOption} checked={isShowChecked} />Shows</label>
-            <label htmlFor="actors"><input type="radio" id = 'actors' value="people" onChange={changeSearchOption} checked={!isShowChecked} />Actors</label>
+            <SearchInput type="text" placeholder="Search for Shows/Actors" onKeyDown ={onKeyDown} onChange={inputText} value={input}/>
+
+            <RadioInputsWrapper>
+                <div>
+                    <CustomRadio lable='Shows' id = 'shows' value="shows" onChange={changeSearchOption} checked={isShowChecked} />
+                </div>
+                <div>
+                    <CustomRadio lable='Actors' id = 'actors' value="people" onChange={changeSearchOption} checked={!isShowChecked} />
+                </div>
+            </RadioInputsWrapper>
+            <SearchButtonWrapper>
+                <button type="button" onClick={onSearch}>Search</button>
+            </SearchButtonWrapper>
             <RenderResults results={results } />
         </MainPageLayout>
     )

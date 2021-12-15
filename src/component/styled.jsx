@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import FadeIn from 'react-fade-in'
 
 export const SearchGrid = styled.div`
   display : flex;
@@ -7,7 +8,7 @@ export const SearchGrid = styled.div`
   padding: 10px;
   `;
 
-export const SearchCard = styled.div`
+export const SearchCard = styled(FadeIn)`
   width: 300px;
   height: 100%;
   margin: 0 15px 40px;

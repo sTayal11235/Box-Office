@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import CustomRadio from '../component/CustomRadio'
 import MainPageLayout from '../component/MainPageLayout'
 import { RenderResults } from '../component/RenderResults'
@@ -14,9 +14,9 @@ function Home() {
 
     const isShowChecked = searchOption === 'shows'
 
-    const inputText = (ev) => {
+    const inputText = useCallback( (ev) => {
         setInput(ev.target.value)
-    }
+    }, [setInput])
 
     const onSearch = () => {
         getApiResponse(`/search/${searchOption}?q=${input}`).then(result => {
@@ -29,10 +29,9 @@ function Home() {
             onSearch()
     }
 
-    const changeSearchOption = (ev) => {
+    const changeSearchOption = useCallback((ev) => {
         setSearchOption(ev.target.value)
-    }
-
+    }, [])
     return (
         <MainPageLayout>
             <SearchInput type="text" placeholder="Search for Shows/Actors" onKeyDown ={onKeyDown} onChange={inputText} value={input}/>

@@ -1,4 +1,5 @@
-import {useState, useReducer, useEffect} from 'react'
+/* eslint-disable no-console */
+import {useState, useReducer, useEffect, useRef, useCallback} from 'react'
 import {getApiResponse} from './Response'
 
 function showReducer(prev, action){
@@ -41,10 +42,10 @@ export function usePersistedQuery(key='lq'){
         return persist? JSON.parse(persist):""
     })
 
-    const setLastQuery = lastQ => {
+    const setLastQuery = useCallback( lastQ => {
         setQuery(lastQ)
         sessionStorage.setItem(key, JSON.stringify(lastQ))
-    }
+    }, [key])
 
     return [query, setLastQuery]
 }
@@ -72,16 +73,18 @@ export function useReadMore(showId){
     useEffect(() => {
         let isMounted = true;
 
-        getApiResponse(`/shows/${showId}?embed[]=seasons&embed[]=cast`).then(res => {
-            if(isMounted){
-                dispatch({type: 'FETCH_SUCCESS', showMore: res})
-            }
-            
-        }).catch(err => {
-            if(isMounted){
-                dispatch({type: 'FETCH_ERROR', error: err.message})
-            }
-        })
+        setTimeout( () => {
+            getApiResponse(`/shows/${showId}?embed[]=seasons&embed[]=cast`).then(res => {
+                if(isMounted){
+                    dispatch({type: 'FETCH_SUCCESS', showMore: res})
+                }
+                
+            }).catch(err => {
+                if(isMounted){
+                    dispatch({type: 'FETCH_ERROR', error: err.message})
+                }
+            })
+        }, 1000)
 
         return () => {
             isMounted = false
@@ -90,3 +93,37 @@ export function useReadMore(showId){
 
     return state
 }
+
+export function useWhyDidYouUpdate(name, props) {
+    // Get a mutable ref object where we can store props ...
+    // ... for comparison next time this hook runs.
+    const previousProps = useRef();
+  
+    useEffect(() => {
+      if (previousProps.current) {
+        // Get all keys from previous and current props
+        const allKeys = Object.keys({ ...previousProps.current, ...props });
+        // Use this object to keep track of changed props
+        const changesObj = {};
+        // Iterate through keys
+        allKeys.forEach((key) => {
+          // If previous is different from current
+          if (previousProps.current[key] !== props[key]) {
+            // Add to changesObj
+            changesObj[key] = {
+              from: previousProps.current[key],
+              to: props[key],
+            };
+          }
+        });
+  
+        // If changesObj not empty then output to console
+        if (Object.keys(changesObj).length) {
+          console.log("[why-did-you-update]", name, changesObj);
+        }
+      }
+  
+      // Finally update previousProps with current props for next hook call
+      previousProps.current = props;
+    });
+  }

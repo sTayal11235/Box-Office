@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import Loading from '../component/Loader'
 import { InfoBlock, ShowPageWrapper } from '../component/Show.styled'
 import Cast from '../component/show/Cast'
 import Details from '../component/show/Details'
@@ -14,7 +15,7 @@ const ReadMore = () => {
     const { moreInfo, isLoading, error } = useReadMore(id)
 
     if(isLoading){
-        return (<div>Loading Page</div>)
+        return (<Loading/>)
     }
     if(error){
         return (<div>{error}</div>)

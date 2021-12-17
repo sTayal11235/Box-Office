@@ -7,6 +7,7 @@ import Cast from '../component/show/Cast'
 import Details from '../component/show/Details'
 import Seasons from '../component/show/Seasons'
 import ShowMainData from '../component/show/ShowMainData'
+import { DataWrapper } from '../component/styled'
 import { useReadMore } from '../misc/CustomHook'
 
 const ReadMore = () => {
@@ -18,7 +19,7 @@ const ReadMore = () => {
         return (<Loading/>)
     }
     if(error){
-        return (<div>{error}</div>)
+        return (<DataWrapper><div>An Error Occurred : {error}</div></DataWrapper>)
     }
     return (<ShowPageWrapper>
         <ShowMainData image={moreInfo.image} name={moreInfo.name} rating={moreInfo.rating} summary={moreInfo.summary} genres={moreInfo.genres} />

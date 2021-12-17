@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Loading from '../component/Loader'
 import MainPageLayout from '../component/MainPageLayout'
 import ShowGrid from '../component/show/ShowGrid'
+import { DataWrapper } from '../component/styled'
 import { useShowHook } from '../misc/CustomHook'
 import { getApiResponse } from '../misc/Response'
 
@@ -15,7 +16,7 @@ function Starred() {
     useEffect(() => {
         if(starred && starred.length > 0){
             const allStarredPromises = starred.map(showId => getApiResponse(`/shows/${showId}`))
-            setTimeout(            Promise.all(allStarredPromises).then(apiData => apiData.map(show => ({ show })))
+            setTimeout( Promise.all(allStarredPromises).then(apiData => apiData.map(show => ({ show })))
             .then(result => {
                 setShows(result)
                 setIsLoading(false)
@@ -32,8 +33,8 @@ function Starred() {
     return (
         <MainPageLayout>
             { isLoading && <Loading/>}
-            { error && <div>An Error Occurred: {error} </div>}
-            { !shows && !isLoading && <div>No Shows Were Starred</div>}
+            { error && <DataWrapper><div>An Error Occurred: {error} </div></DataWrapper>}
+            { !shows && !isLoading && <DataWrapper><div>No Shows Were Starred</div></DataWrapper>}
             { !error && !isLoading && shows && <ShowGrid data={shows}/>}
         </MainPageLayout>
     )

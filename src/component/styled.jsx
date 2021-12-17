@@ -58,3 +58,20 @@ clip-path: polygon(
   39% 35%
 );
 `;
+
+export const DataWrapper = styled.div`
+position: absolute;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 20%;
+div{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 900;
+  font-size: 7.5vh;
+  text-align: center;
+  color: rgb(155, 155, 155);
+  text-shadow: 0px 0px 3.5px #000;
+}
+`

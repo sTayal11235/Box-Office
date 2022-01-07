@@ -5,4 +5,9 @@
 This is a multi page Progressive Web App (PWA) built using the react app template. Primary purpose of this PWA is to enable users to search for and star TV shows/series and also search for actors
 
 Tools and Frameworks used-
- * hello
+ * React app template
+ * Javascript
+ * eslint and prettier
+ * styled components CSS
+
+[Visit Site](seriessearcher.surge.sh)
